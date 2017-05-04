@@ -1,0 +1,18 @@
+version: '3'
+services:
+  node1:
+    image: cassandra:latest
+    hostname: node1
+    ports:
+      - "9042:9042"
+    environment: 
+      - CASSANDRA_BROADCAST_ADDRESS=node1
+
+  node2:
+    image: cassandra:latest
+    hostname: node2
+    depends_on:
+      - node1
+    environment: 
+      - CASSANDRA_BROADCAST_ADDRESS=node2
+      - CASSANDRA_SEEDS=node1
